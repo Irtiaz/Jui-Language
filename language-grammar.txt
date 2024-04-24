@@ -1,0 +1,36 @@
+start statements statement logic_expression rel_expression simple_expression term unary_expression factor variable loop conditional else_if_clauses else_if_clause else_clause
+ASSIGNOP PORO LIKHO LOGICOP COMMA ER RELOP ADDOP MULOP NA NUMBER LPAREN RPAREN ID LTHIRD RTHIRD JOTOKKHON THAKE TOTOKKHON KORO JODI HOY TAILE NOILE AR
+start statements
+statements statements statement
+statements statement
+statement variable ASSIGNOP logic_expression
+statement PORO variable
+statement LIKHO logic_expression
+statement loop
+statement conditional
+logic_expression rel_expression
+logic_expression rel_expression LOGICOP rel_expression
+logic_expression logic_expression NA
+rel_expression simple_expression
+rel_expression simple_expression COMMA simple_expression ER RELOP
+rel_expression rel_expression NA
+simple_expression term
+simple_expression simple_expression ADDOP term
+term unary_expression
+term term MULOP unary_expression
+unary_expression ADDOP unary_expression
+unary_expression factor
+factor variable
+factor NUMBER
+factor LPAREN logic_expression RPAREN
+variable ID
+variable ID LTHIRD logic_expression RTHIRD
+loop JOTOKKHON logic_expression THAKE TOTOKKHON statements KORO
+conditional JODI logic_expression HOY TAILE statements KORO else_if_clauses else_clause
+conditional JODI logic_expression HOY TAILE statements KORO else_clause
+conditional JODI logic_expression HOY TAILE statements KORO else_if_clauses
+conditional JODI logic_expression HOY TAILE statements KORO
+else_if_clauses else_if_clauses else_if_clause
+else_if_clauses else_if_clause
+else_if_clause NOILE JODI logic_expression HOY TAILE statements KORO
+else_clause AR NOILE statements KORO

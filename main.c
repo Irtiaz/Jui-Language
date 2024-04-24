@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define defaultName "__a__"
+
 typedef enum {
     e_start_statements,
     e_statements_statements_statement,
@@ -117,7 +119,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    if (argc < 3) strcpy(outputName, "__a__.c");
+    if (argc < 3) strcpy(outputName, defaultName".c");
     else sprintf(outputName, "%s.c", argv[2]);
 
     parseTableFile = fopen("parse-table.txt", "r");
@@ -187,7 +189,7 @@ int main(int argc, char **argv) {
 
     if (argc < 4) {
         char command[300];
-        sprintf(command, "gcc %s.c -o %s", argv[2], argv[2]);
+        sprintf(command, "gcc %s.c -o %s", argc < 3? defaultName : argv[2], argc < 3? "a" : argv[2]);
         system(command);
         sprintf(command, "rm %s", outputName);
         system(command);
