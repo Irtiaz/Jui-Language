@@ -1,0 +1,5 @@
+i = 1
+jotokkhon i, 10 er boro na thake totokkhon
+	likho i
+	i = i + 1
+koro

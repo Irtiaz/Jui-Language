@@ -1,0 +1,32 @@
+poro n
+
+i = 0
+
+jotokkhon i, n er choto thake totokkhon
+	poro a[i]
+	i = i + 1
+koro
+
+i = 0
+jotokkhon i, n er choto thake totokkhon
+	j = 0
+
+	jotokkhon j, n - 1 er choto thake totokkhon
+	
+		jodi a[j], a[j + 1] er boro hoy taile
+			temp = a[j]
+			a[j] = a[j + 1]
+			a[j + 1] = temp
+		koro
+
+		j = j + 1
+	koro
+
+	i = i + 1
+koro
+
+i = 0
+jotokkhon i, n er choto thake totokkhon
+	likho a[i]
+	i = i + 1
+koro

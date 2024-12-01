@@ -1,0 +1,15 @@
+a = 1
+b = 1
+
+likho a
+likho b
+
+total = 2
+
+jotokkhon total, 10 er choto thake totokkhon
+	c = a + b
+	a = b
+	b = c
+	likho c
+	total = total + 1
+koro
