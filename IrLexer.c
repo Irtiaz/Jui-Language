@@ -20,6 +20,7 @@ struct IrLexerStruct {
 	LexRule **rules;
 	char buffer[BUFFER_SIZE];
 	char lastReadCharacter;
+	int lineCount;
 };
 
 LexRule *createLexRule(const char *tokenName, const char *regexString);
@@ -45,12 +46,14 @@ IrLexer *createIrLexer(struct string_stream *ruleStream, FILE *inputFile) {
 	}
 
 	irLexer->inputFile = inputFile;
+	irLexer->lineCount = 0;
 	irLexer->lastReadCharacter = fgetc(inputFile);
+	if (irLexer->lastReadCharacter == '\n') ++irLexer->lineCount;
 
 	return irLexer;
 }
 
-void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUFFER_SIZE]) {
+void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUFFER_SIZE], int *pLineNumber) {
 	int matchFlag = 0;
 	int bufferIndex = 0;
 
@@ -77,6 +80,7 @@ void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUF
 				strcpy(token, matchingToken);
 				strcpy(lexeme, irLexer->buffer);
 				memset(irLexer->buffer, '\0', BUFFER_SIZE);
+				*pLineNumber = irLexer->lastReadCharacter == '\n'? irLexer->lineCount - 1 : irLexer->lineCount;
 				return;
 			}
 
@@ -86,6 +90,7 @@ void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUF
 		else {
 			++bufferIndex;
 			irLexer->lastReadCharacter = fgetc(irLexer->inputFile);
+			if (irLexer->lastReadCharacter == '\n') ++irLexer->lineCount;
 		}
 
 		matchFlag = currentlyMatching;

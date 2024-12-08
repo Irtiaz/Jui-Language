@@ -92,7 +92,7 @@ ParseTree *else_if_clauses_else_if_clause(IrParseStackItem *items);
 ParseTree *else_if_clause_NOILE_JODI_logic_expression_HOY_TAILE_statements_KORO(IrParseStackItem *items);
 ParseTree *else_clause_AR_NOILE_statements_KORO(IrParseStackItem *items);
 
-void errorHandler(void);
+void errorHandler(TokenLexemePair *erroneousToken);
 
 void printParseTree(ParseTree *tree, int indentationLevel);
 void printCodePrefix(FILE *file);
@@ -105,7 +105,7 @@ extern char _binary_rulepack_txt_start[];
 static ParseTree *tree;
 static struct { char *key; int value; } *variables = NULL;
 
-int main(int argc, char **argv) { 
+int main(int argc, char **argv) {
 	FILE *inputFile;
 
 	FILE *codeFile;
@@ -183,6 +183,7 @@ int main(int argc, char **argv) {
 	destroyIrParser(irParser);
 	fclose(codeFile);
 	fclose(inputFile);
+	string_stream_close(rulepackStream);
 
 	if (argc < 4) {
 		char command[300];
@@ -192,7 +193,6 @@ int main(int argc, char **argv) {
 		system(command);
 	}
 
-	string_stream_close(rulepackStream);
 
 	return 0;
 }
@@ -528,8 +528,10 @@ ParseTree *else_clause_AR_NOILE_statements_KORO(IrParseStackItem *items) {
 
 
 
-void errorHandler(void) {
+void errorHandler(TokenLexemePair *erroneousToken) {
 	puts("Synatx error");
+	printf("At %s in line number %d\n", erroneousToken->lexeme, erroneousToken->lineNumber + 1);
+	free(erroneousToken);
 }
 
 void printParseTree(ParseTree *root, int indentationLevel) {

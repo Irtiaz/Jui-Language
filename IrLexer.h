@@ -10,7 +10,7 @@
 typedef struct IrLexerStruct IrLexer;
 
 IrLexer *createIrLexer(struct string_stream *ruleStream, FILE *inputFile);
-void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUFFER_SIZE]);
+void getNextToken(IrLexer *irLexer, char token[MAX_TOKEN_CHARS], char lexeme[BUFFER_SIZE], int *pLineNumber);
 void destroyIrLexer(IrLexer *irLexer);
 
 #endif

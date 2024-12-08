@@ -28,6 +28,12 @@ typedef struct {
 } IrParseStackItem;
 
 typedef struct {
+	char token[MAX_TOKEN_CHARS];
+	char lexeme[BUFFER_SIZE];
+	int lineNumber;
+} TokenLexemePair;
+
+typedef struct {
 	IrParseStringHashMapItem *tokenMap;
 	IrParseRuleDescriptor *descriptors;
 	int **table;
@@ -35,23 +41,18 @@ typedef struct {
 	int columnCount;
 
 	IrType (**ruleHandlers)(IrParseStackItem *items);
-	void (*errorHandler)(void);
+	void (*errorHandler)(TokenLexemePair *erroneousToken);
 
 	IrLexer *irLexer;
 } IrParser;
 
-typedef struct {
-	char token[MAX_TOKEN_CHARS];
-	char lexeme[BUFFER_SIZE];
-} TokenLexemePair;
-
 TokenLexemePair IrParseGetNextPair(IrLexer *irLexer);
 
-IrParser *createIrParser(struct string_stream *rulepackStream, FILE *inputFile, void (*errorHandler)(void), ...);
+IrParser *createIrParser(struct string_stream *rulepackStream, FILE *inputFile, void (*errorHandler)(TokenLexemePair *erroneousToken), ...);
 IrType irParse(IrParser *irParser);
 void destroyIrParser(IrParser *irParser);
 
-IrParser *createIrParser(struct string_stream *rulepackStream, FILE *inputFile, void (*errorHandler)(void), ...) {
+IrParser *createIrParser(struct string_stream *rulepackStream, FILE *inputFile, void (*errorHandler)(TokenLexemePair *erroneousToken), ...) {
 	IrParser *irParser;
 
 	IrParseStringHashMapItem *tokenMap;
@@ -236,7 +237,11 @@ IrType irParse(IrParser *irParser) {
 	arrfree(stateStack);
 	arrfree(dataStack);
 
-	if (error) (*irParser->errorHandler)();
+	if (error) {
+		TokenLexemePair *erroneousToken = (TokenLexemePair *)malloc(sizeof(TokenLexemePair));
+		memcpy(erroneousToken, &nextPair, sizeof(TokenLexemePair));
+		(*irParser->errorHandler)(erroneousToken);
+	}
 
 	return result;
 }
@@ -261,8 +266,8 @@ TokenLexemePair IrParseGetNextPair(IrLexer *irLexer) {
 	char lexeme[BUFFER_SIZE];
 	TokenLexemePair pair;
 
-	getNextToken(irLexer, token, lexeme);
-	/*printf("%s %s\n", token, lexeme);*/
+	getNextToken(irLexer, token, lexeme, &pair.lineNumber);
+	/*printf("%s %s %d\n", token, lexeme, pair.lineNumber);*/
 
 	strcpy(pair.token, token); 
 	strcpy(pair.lexeme, lexeme);
