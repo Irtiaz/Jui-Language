@@ -529,7 +529,7 @@ ParseTree *else_clause_AR_NOILE_statements_KORO(IrParseStackItem *items) {
 
 
 void errorHandler(TokenLexemePair *erroneousToken) {
-	fprintf(stderr, "Synatx error");
+	fprintf(stderr, "Synatx error\n");
 	fprintf(stderr, "At %s in line number %d\n", erroneousToken->lexeme, erroneousToken->lineNumber + 1);
 	free(erroneousToken);
 }
