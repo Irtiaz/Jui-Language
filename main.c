@@ -532,6 +532,7 @@ void errorHandler(TokenLexemePair *erroneousToken) {
 	fprintf(stderr, "Synatx error\n");
 	fprintf(stderr, "At %s in line number %d\n", erroneousToken->lexeme, erroneousToken->lineNumber + 1);
 	free(erroneousToken);
+	exit(1);
 }
 
 void printParseTree(ParseTree *root, int indentationLevel) {
