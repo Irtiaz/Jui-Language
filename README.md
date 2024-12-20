@@ -1,6 +1,9 @@
 # Jui
 Jui is a general purpose Turing Complete minimal programming language in Bangla. This is written fully in C with the help of a parser generator (https://github.com/Irtiaz/IrParseTableGenerator and https://github.com/Irtiaz/IrParser) and a lexer generator (https://github.com/Irtiaz/IrLex)
 
+## Official Website and Online Playground
+Visit the [Official Website](https://jui-7cof.onrender.com/) and the [online playground](https://jui-7cof.onrender.com/playground)
+
 ## Installation
 The source code (`main.c`) and the parse table file (`parse-table.txt`) along with the lexical analysis rules file (`rules.txt`) has to be put together and made with a C compiler (a sample `Makefile` is provided). The grammar for the language is provided (`language-grammar.txt`). If you want to bring some changes to the grammar you are welcome to do so. Make sure to compile the grammar with the parse table generator (https://github.com/Irtiaz/IrParseTableGenerator)
 
