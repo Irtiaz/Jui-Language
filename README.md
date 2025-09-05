@@ -7,6 +7,9 @@ Visit the [Official Website](https://jui-7cof.onrender.com/) and the [online pla
 ## Installation
 The source code (`main.c`) and the parse table file (`parse-table.txt`) along with the lexical analysis rules file (`rules.txt`) has to be put together and made with a C compiler (a sample `Makefile` is provided). The grammar for the language is provided (`language-grammar.txt`). If you want to bring some changes to the grammar you are welcome to do so. Make sure to compile the grammar with the parse table generator (https://github.com/Irtiaz/IrParseTableGenerator)
 
+## Examples
+The `examples/` directory contains different examples that you can compile and try yourself. Similar examples exist in the [Official Website](https://jui-7cof.onrender.com/)
+
 ## Syntax
 ### variables
 Variable usage is just like C. Currently all the variables are integers.
